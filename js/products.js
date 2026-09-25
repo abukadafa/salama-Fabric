@@ -318,6 +318,325 @@ const PRODUCTS = [
       { name: "Dusty Rose Pink", hex: "#C7959E" }
     ],
     inStock: true
+  },
+  {
+    id: "fab-004",
+    name: "Royal Swiss Voile Lace with Hand-Cut Embroidery & Stones (5 Yards)",
+    category: "fabrics",
+    categoryName: "Premium Fabrics",
+    price: 55000,
+    oldPrice: 62000,
+    badge: "NEW ARRIVAL",
+    rating: 5.0,
+    reviewsCount: 41,
+    image: "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=900&q=85",
+    description: "Authentic premium Swiss cotton voile lace featuring exquisite hand-cut eyelet borders and radiant Austrian crystal stone embellishments. Soft on the skin, majestic in drape, and ideal for Aso-Ebi, bridal, and luxury Nigerian celebrations.",
+    specs: {
+      material: "100% Pure Swiss Cotton Voile",
+      embroidery: "Hand-Cut Eyelet with Crystal Stones",
+      width: "52 inches (132 cm)",
+      unit: "Sold as complete 5 Yards (4.57m) bundle",
+      suitability: "Aso-Ebi, Owambe, Luxury Iro & Buba, Traditional Ceremonies"
+    },
+    sizes: ["5 Yards Bundle", "10 Yards (2 Bundles)"],
+    colors: [
+      { name: "Royal Navy & Gold", hex: "#071D40" },
+      { name: "Pure White & Silver", hex: "#FFFFFF" },
+      { name: "Emerald Green & Gold", hex: "#16382C" },
+      { name: "Champagne Gold", hex: "#D4AF37" }
+    ],
+    inStock: true
+  },
+  {
+    id: "fab-005",
+    name: "French Beaded Guipure Cord Lace (5 Yards)",
+    category: "fabrics",
+    categoryName: "Premium Fabrics",
+    price: 72000,
+    oldPrice: 80000,
+    badge: "LUXURY",
+    rating: 5.0,
+    reviewsCount: 36,
+    image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=900&q=85",
+    description: "Opulent French corded guipure lace adorned with hand-stitched seed pearls and delicate gold lurex filament. Substantial weight and rich floral relief make it the crown jewel of high-society occasions.",
+    specs: {
+      material: "Corded Cotton & Silk Blend with Seed Pearls",
+      embroidery: "3D Floral Guipure Relief",
+      width: "50 inches (127 cm)",
+      unit: "Sold as complete 5 Yards (4.57m) bundle",
+      care: "Dry clean only or delicate hand wash"
+    },
+    sizes: ["5 Yards Bundle", "10 Yards (2 Bundles)"],
+    colors: [
+      { name: "Powder Blue & Gold", hex: "#8DA9C4" },
+      { name: "Rose Gold & Blush", hex: "#D4A5A5" },
+      { name: "Midnight Black & Gold", hex: "#11141A" }
+    ],
+    inStock: true
+  },
+  {
+    id: "fab-006",
+    name: "Embellished Regal George Wrapper & Blouse Set (7 Yards)",
+    category: "fabrics",
+    categoryName: "Premium Fabrics",
+    price: 85000,
+    oldPrice: 95000,
+    badge: "BEST SELLER",
+    rating: 5.0,
+    reviewsCount: 47,
+    image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=900&q=85",
+    description: "Timeless traditional Nigerian prestige attire. Heavy raw-silk base embellished with scalloped gold bullion borders, intricate sequins, and matching blouse fabric for grand ceremonies, chieftaincies, and weddings.",
+    specs: {
+      material: "Heavyweight Raw Silk with Gold Embroidery",
+      included: "5 Yards Wrapper Fabric + 2 Yards Blouse Fabric (7 Yards Total)",
+      border: "Heavy scalloped gold metallic edge",
+      origin: "Authentic Indian George Craftsmanship"
+    },
+    sizes: ["Complete Set (5 Yds Wrapper + 2 Yds Blouse)", "Double Set (10 Yds Wrapper + 4 Yds Blouse)"],
+    colors: [
+      { name: "Deep Wine Burgundy", hex: "#4A121A" },
+      { name: "Royal Sapphire Blue", hex: "#0C2340" },
+      { name: "Forest Emerald Green", hex: "#16382C" }
+    ],
+    inStock: true
+  },
+  {
+    id: "fab-007",
+    name: "Original Austrian Bazin Riche Brocade (Shadda - 10 Yards)",
+    category: "fabrics",
+    categoryName: "Premium Fabrics",
+    price: 65000,
+    oldPrice: 72000,
+    badge: "AUTHENTIC",
+    rating: 4.9,
+    reviewsCount: 63,
+    image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=85",
+    description: "The gold standard in West African luxury: genuine 100% super-combed Egyptian cotton Guinea brocade with signature oil-glaze sheen, crisp hand-feel, and aromatic perfumed finish. Designed for dignified Babanriga, Kaftans, and wrapper styles.",
+    specs: {
+      material: "100% Super-Combed Egyptian Cotton",
+      finish: "High-Luster Calendered Glaze & Perfumed",
+      width: "63 inches (160 cm Super-Wide)",
+      unit: "Sold as complete 10 Yards (9.14m) full piece",
+      durability: "Colorfast and retains crisp body after laundering"
+    },
+    sizes: ["5 Yards Half Piece", "10 Yards Full Piece"],
+    colors: [
+      { name: "Pure White", hex: "#FFFFFF" },
+      { name: "Jet Black", hex: "#0F1115" },
+      { name: "Royal Indigo", hex: "#081E3F" },
+      { name: "Golden Bronze", hex: "#8F6B21" }
+    ],
+    inStock: true
+  },
+  {
+    id: "fab-008",
+    name: "Superfine Italian Cashmere Wool Senator Material (4 Yards)",
+    category: "fabrics",
+    categoryName: "Premium Fabrics",
+    price: 38000,
+    oldPrice: 44000,
+    badge: "POPULAR",
+    rating: 4.9,
+    reviewsCount: 55,
+    image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=85",
+    description: "Premium Italian 180s wool and cashmere blend suiting fabric. Delivers crisp sharp creases, supreme breathability for Nigerian weather, and a flawless silhouette for bespoke Senator, Kaftan, and Agbada tailoring.",
+    specs: {
+      material: "85% Fine Wool, 15% Cashmere Blend",
+      width: "58 inches (147 cm)",
+      weight: "280 gsm (Year-Round Medium-Weight)",
+      unit: "Sold as 4 Yards (Standard Senator cut)",
+      characteristics: "Wrinkle-resistant with natural matte finish"
+    },
+    sizes: ["4 Yards (Standard Senator / Kaftan)", "7 Yards (Complete 3-Piece Agbada)"],
+    colors: [
+      { name: "Midnight Navy", hex: "#071D40" },
+      { name: "Charcoal Slate", hex: "#2F333A" },
+      { name: "Tan Camel", hex: "#A88758" },
+      { name: "Jet Black", hex: "#111317" }
+    ],
+    inStock: true
+  },
+  {
+    id: "fab-009",
+    name: "Pure Mulberry Silk Damask Wrapper Fabric (5 Yards)",
+    category: "fabrics",
+    categoryName: "Premium Fabrics",
+    price: 48000,
+    oldPrice: 54000,
+    badge: "PREMIUM",
+    rating: 4.8,
+    reviewsCount: 29,
+    image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=900&q=85",
+    description: "Silky fluid brocade woven from natural mulberry silk fibers. Features subtle tone-on-tone botanical reliefs that catch sunlight with an understated royal glow. Perfect for luxury wrapper pairings and flowing boubou gowns.",
+    specs: {
+      material: "100% Pure Mulberry Silk Brocade",
+      width: "54 inches (137 cm)",
+      unit: "Sold as complete 5 Yards (4.57m) bundle",
+      care: "Dry clean or gentle hand wash with silk shampoo"
+    },
+    sizes: ["5 Yards Bundle", "10 Yards (2 Bundles)"],
+    colors: [
+      { name: "Champagne Ivory", hex: "#EADDC6" },
+      { name: "Royal Navy", hex: "#071D40" },
+      { name: "Ruby Coral", hex: "#9E3242" }
+    ],
+    inStock: true
+  },
+  {
+    id: "bed-005",
+    name: "1200TC Presidential Hotel Grandeur Embroidered Duvet Set",
+    category: "bedding",
+    categoryName: "Luxury Bedding",
+    price: 58000,
+    oldPrice: 65000,
+    badge: "HOTEL GRADE",
+    rating: 5.0,
+    reviewsCount: 44,
+    image: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=900&q=85",
+    description: "The pinnacle of bedtime luxury. Double-mercerized 1200TC Egyptian cotton sateen adorned with classic double-line satin cordonnet embroidery on duvet cover and pillow flanges.",
+    specs: {
+      material: "1200TC Double-Mercerized Giza Egyptian Cotton",
+      finish: "Silky Luster Sateen with Cord Embroidery",
+      included: "1 Duvet Cover, 1 Deep-Pocket Fitted Sheet, 4 Oxford Pillowcases",
+      care: "Machine wash cold on gentle cycle; tumble dry low"
+    },
+    sizes: ["Queen (6x6 ft)", "King (6x7 ft)", "Super King (7x7 ft)"],
+    colors: [
+      { name: "Crisp White with Navy Cordonnet", hex: "#FFFFFF" },
+      { name: "Crisp White with Gold Cordonnet", hex: "#FAF8F2" },
+      { name: "Ivory Pearl with Champagne Cordonnet", hex: "#F3EBDD" }
+    ],
+    inStock: true
+  },
+  {
+    id: "bed-006",
+    name: "Pure Organic Cotton Waffle Weave Summer Blanket & Throw",
+    category: "bedding",
+    categoryName: "Luxury Bedding",
+    price: 24000,
+    oldPrice: 28000,
+    badge: "NEW",
+    rating: 4.8,
+    reviewsCount: 31,
+    image: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=900&q=85",
+    description: "Woven from 100% GOTS-certified organic cotton in a dimensional honeycomb waffle structure. Lightweight, breathable, and provides cozy insulation without overheating.",
+    specs: {
+      material: "100% Certified Organic Long-Staple Cotton",
+      weave: "Dimensional Honeycomb Thermal Waffle",
+      weight: "380 gsm All-Season Weight",
+      included: "1 King-Size Multi-Purpose Bed Blanket"
+    },
+    sizes: ["Queen (200x230 cm)", "King (230x250 cm)"],
+    colors: [
+      { name: "Warm Natural Linen", hex: "#D8CCB8" },
+      { name: "Slate Charcoal", hex: "#323740" },
+      { name: "Ivory Cloud", hex: "#F7F5EE" }
+    ],
+    inStock: true
+  },
+  {
+    id: "curt-004",
+    name: "Dual-Layer Luxury Blackout Velvet & Sheer Wave-Fold Drapery Set",
+    category: "curtains",
+    categoryName: "Curtains",
+    price: 54000,
+    oldPrice: 62000,
+    badge: "BEST VALUE",
+    rating: 5.0,
+    reviewsCount: 38,
+    image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=900&q=85",
+    description: "Complete luxury window dressing solution. Includes two heavyweight thermal blackout velvet drapes paired with two airy sheer linen panels for daytime illumination and nighttime privacy.",
+    specs: {
+      material: "Plush High-Density Velvet + Fine Slub Linen",
+      included: "2 Blackout Panels + 2 Sheer Panels + 2 Matching Tiebacks (4 Panels Total)",
+      heading: "Universal Heading: Wave-fold tape & rod pocket",
+      blocking: "100% Light & Thermal heat obstruction"
+    },
+    sizes: ["Drop 260cm x Width 160cm", "Drop 300cm x Width 200cm"],
+    colors: [
+      { name: "Midnight Navy & Pure White Sheer", hex: "#071D40" },
+      { name: "Warm Sand Champagne & Linen Sheer", hex: "#C5B396" },
+      { name: "Charcoal Slate & White Sheer", hex: "#2B2E35" }
+    ],
+    inStock: true
+  },
+  {
+    id: "curt-005",
+    name: "Embossed Moroccan Trellis Damask Blackout Panels",
+    category: "curtains",
+    categoryName: "Curtains",
+    price: 36000,
+    oldPrice: 42000,
+    badge: "POPULAR",
+    rating: 4.9,
+    reviewsCount: 46,
+    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=85",
+    description: "Subtle tone-on-tone Moroccan geometric damask relief embossed onto triple-weave blackout fabric. Blocks intrusive glare and outside heat while lending architectural depth to your windows.",
+    specs: {
+      material: "Triple-Weave Textured Poly-Damask",
+      finish: "Embossed Trellis Jacquard Pattern",
+      included: "Pair of 2 panels with grommet eyelets",
+      care: "Machine washable cold gentle cycle"
+    },
+    sizes: ["Drop 240cm x Width 140cm", "Drop 270cm x Width 200cm"],
+    colors: [
+      { name: "Antique Gold", hex: "#BA8C2A" },
+      { name: "Midnight Navy", hex: "#071D40" },
+      { name: "Soft Silver Cream", hex: "#E6DFD3" }
+    ],
+    inStock: true
+  },
+  {
+    id: "acc-003",
+    name: "Bespoke Hand-Embroidered Velvet Dining & Console Runner (2.2m)",
+    category: "accessories",
+    categoryName: "Home Accessories",
+    price: 18500,
+    oldPrice: 22000,
+    badge: "HANDMADE",
+    rating: 4.9,
+    reviewsCount: 33,
+    image: "https://images.unsplash.com/photo-1582533561751-ef6f6ab93a2e?auto=format&fit=crop&w=900&q=85",
+    description: "Handcrafted from heavyweight midnight plush velvet with intricate gold bullion metallic embroidery. Padded with a smooth satin backing to protect and elevate dining tables, credenzas, and consoles.",
+    specs: {
+      material: "Microvelvet with Bullion Gold Thread",
+      dimensions: "220 cm Length x 40 cm Width",
+      backing: "Smooth Cotton Satin Non-Slip Lining",
+      embroidery: "Handcrafted traditional acanthus and geometric motifs"
+    },
+    sizes: ["Standard Table (220 x 40 cm)", "Grand Table (260 x 45 cm)"],
+    colors: [
+      { name: "Royal Navy & Bullion Gold", hex: "#071D40" },
+      { name: "Emerald & Gold", hex: "#16382C" },
+      { name: "Champagne Cream & Gold", hex: "#ECE2CD" }
+    ],
+    inStock: true
+  },
+  {
+    id: "acc-004",
+    name: "Luxury Cylindrical Silk Bolster Cushion Pair with Brass Aglets",
+    category: "accessories",
+    categoryName: "Home Accessories",
+    price: 22000,
+    oldPrice: 26000,
+    badge: "EXCLUSIVE",
+    rating: 5.0,
+    reviewsCount: 27,
+    image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=900&q=85",
+    description: "Pair of firm, cylindrical accent bolsters crafted in lustrous mulberry silk. Features hand-gathered rosette ends and braided gold ties with weighted solid brass aglet hardware.",
+    specs: {
+      material: "100% Mulberry Silk Blend Casing",
+      fill: "High-Resilience Micro-Cluster Fiber Core",
+      hardware: "Solid Brass Polished End Caps",
+      dimensions: "60 cm Length x 20 cm Diameter (Set of 2)"
+    },
+    sizes: ["Pair (60 x 20 cm)"],
+    colors: [
+      { name: "Navy & Brass", hex: "#071D40" },
+      { name: "Gold Ochre & Brass", hex: "#B58A22" },
+      { name: "Ivory Cream & Brass", hex: "#F3EBDD" }
+    ],
+    inStock: true
   }
 ];
 
