@@ -1,204 +1,521 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SALAMA Fabrics & Bedding</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --navy:#071D40; --gold:#B58A22; --ivory:#FAF8F2; --cream:#F3EBDD; --white:#fff; --charcoal:#252B35;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);}
-body{font-family:'Inter',sans-serif;color:var(--charcoal);background:var(--ivory);overflow-x:hidden;}
-h1,h2,h3{font-family:'Playfair Display',serif;color:var(--navy);}
-a{text-decoration:none;color:inherit;}
-.announce{background:var(--navy);color:var(--cream);text-align:center;font-size:.75rem;letter-spacing:.08em;padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top,0px));}
-header{position:sticky;top:0;z-index:20;background:rgba(250,248,242,.96);backdrop-filter:blur(6px);border-bottom:1px solid #e8e0d0;}
-.nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;}
-.brand{display:flex;align-items:center;gap:10px;}
-.brand img{width:42px;height:42px;border-radius:50%;object-fit:cover;}
-.brand span{font-family:'Playfair Display',serif;font-weight:700;color:var(--navy);font-size:1.15rem;letter-spacing:.03em;}
-.navlinks{display:flex;gap:28px;font-size:.85rem;font-weight:500;}
-.navlinks a:hover{color:var(--gold);}
-.icons{display:flex;gap:16px;font-size:1.1rem;color:var(--navy);}
-.menu-btn{display:none;background:none;border:none;font-size:1.4rem;color:var(--navy);cursor:pointer;}
-.mobile-menu{display:none;flex-direction:column;gap:14px;padding:16px 20px 22px;background:var(--white);border-top:1px solid #e8e0d0;}
-.mobile-menu.open{display:flex;}
-@media(max-width:820px){.navlinks{display:none;}.menu-btn{display:block;}}
-
-.hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 20px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(181,138,34,.18), transparent 45%),
-    radial-gradient(circle at 80% 75%, rgba(181,138,34,.12), transparent 50%),
-    linear-gradient(135deg,#071D40 0%,#0d2c5c 55%,#071D40 100%);
-  overflow:hidden;
-}
-.hero::before{content:"";position:absolute;inset:0;background:
-  repeating-linear-gradient(115deg, rgba(255,255,255,.03) 0 2px, transparent 2px 60px);}
-.hero-inner{position:relative;max-width:760px;color:var(--ivory);animation:rise 1s ease both;}
-@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.eyebrow{color:var(--gold);letter-spacing:.25em;font-size:.75rem;font-weight:600;margin-bottom:18px;}
-.hero h1{font-size:clamp(2.2rem,5.2vw,3.6rem);line-height:1.15;font-weight:700;margin-bottom:20px;}
-.hero p{font-size:1.05rem;color:#e8e3d6;max-width:540px;margin:0 auto 30px;line-height:1.7;}
-.cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
-.btn{padding:14px 30px;border-radius:2px;font-size:.85rem;letter-spacing:.05em;font-weight:600;cursor:pointer;border:1px solid var(--gold);transition:.25s;}
-.btn-gold{background:var(--gold);color:var(--navy);}
-.btn-gold:hover{background:#c99f34;}
-.btn-outline{background:transparent;color:var(--ivory);}
-.btn-outline:hover{background:rgba(255,255,255,.08);}
-.divider{width:64px;height:1px;background:var(--gold);margin:0 auto 26px;}
-.trust{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;font-size:.78rem;color:#d8d2c0;letter-spacing:.03em;}
-.trust span{display:flex;align-items:center;gap:6px;}
-.trust span::before{content:"◆";color:var(--gold);font-size:.6rem;}
-
-section{padding:80px 20px;max-width:1200px;margin:0 auto;}
-.section-head{text-align:center;margin-bottom:46px;}
-.section-head .tag{color:var(--gold);letter-spacing:.2em;font-size:.72rem;font-weight:600;}
-.section-head h2{font-size:clamp(1.7rem,3.5vw,2.4rem);margin-top:10px;}
-
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
-.cat-card{position:relative;height:280px;border-radius:4px;overflow:hidden;background:var(--navy);cursor:pointer;transition:transform .35s;}
-.cat-card:hover{transform:translateY(-6px);}
-.cat-card .tone{position:absolute;inset:0;opacity:.9;}
-.cat-card:nth-child(1) .tone{background:linear-gradient(160deg,#0d2c5c,#B58A22 180%);}
-.cat-card:nth-child(2) .tone{background:linear-gradient(160deg,#071D40,#3a2f16 180%);}
-.cat-card:nth-child(3) .tone{background:linear-gradient(160deg,#22345c,#B58A22 180%);}
-.cat-card:nth-child(4) .tone{background:linear-gradient(160deg,#071D40,#5c4a1e 180%);}
-.cat-label{position:absolute;left:0;right:0;bottom:0;padding:22px;color:var(--ivory);}
-.cat-label h3{color:var(--ivory);font-size:1.25rem;}
-.cat-label p{font-size:.78rem;color:#d8d2c0;margin-top:4px;}
-.cat-label .link{display:inline-block;margin-top:10px;font-size:.72rem;color:var(--gold);letter-spacing:.08em;font-weight:600;}
-
-.prod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
-.prod-card{background:var(--white);border:1px solid #ece4d3;border-radius:4px;overflow:hidden;transition:box-shadow .25s;}
-.prod-card:hover{box-shadow:0 12px 28px rgba(7,29,64,.10);}
-.prod-img{height:190px;background:linear-gradient(135deg,var(--cream),#e9dcc0);position:relative;}
-.badge{position:absolute;top:10px;left:10px;background:var(--gold);color:var(--navy);font-size:.65rem;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:2px;}
-.prod-body{padding:16px;}
-.prod-body h4{font-size:.95rem;font-weight:600;margin-bottom:6px;}
-.price{color:var(--navy);font-weight:600;}
-.price .old{color:#999;text-decoration:line-through;font-weight:400;font-size:.85rem;margin-left:6px;}
-.demo-note{text-align:center;font-size:.72rem;color:#999;margin-top:30px;font-style:italic;}
-
-.about{background:var(--cream);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
-.about-visual{height:320px;border-radius:4px;background:linear-gradient(150deg,#071D40,#B58A22);}
-@media(max-width:760px){.about-grid{grid-template-columns:1fr;}.about-visual{order:-1;height:220px;}}
-.about h2{margin-bottom:18px;}
-.about p{line-height:1.8;color:#4a4f58;margin-bottom:18px;}
-
-footer{background:var(--navy);color:#d8d2c0;padding:60px 20px 24px;}
-.foot-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:34px;}
-.foot-grid h4{color:var(--ivory);font-family:'Playfair Display',serif;margin-bottom:16px;font-size:1rem;}
-.foot-brand{font-family:'Playfair Display',serif;color:var(--ivory);font-size:1.3rem;margin-bottom:10px;}
-.foot-grid ul{list-style:none;font-size:.85rem;line-height:2.2;}
-.foot-grid ul a:hover{color:var(--gold);}
-.foot-bottom{text-align:center;font-size:.72rem;color:#8a92a8;margin-top:44px;border-top:1px solid rgba(255,255,255,.08);padding-top:20px;}
-@media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;}}
-
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>SALAMA Fabrics &amp; Bedding | Where Comfort Meets Timeless Elegance</title>
+  <meta name="description" content="Discover premium luxury bedding, damask brocades, plush velvet curtains, and exquisite home fabrics. Order directly online with WhatsApp delivery across Nigeria.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="announce">DISCOVER COMFORT AND ELEGANCE WITH SALAMA &nbsp;•&nbsp; WHATSAPP US ON +234 814 770 9019 FOR ORDERS</div>
+  <!-- Top Announcement Bar -->
+  <aside class="announce" aria-label="Announcement">
+    <span>DISCOVER LUXURY &amp; TIMELESS ELEGANCE WITH SALAMA</span>
+    <span>•</span>
+    <span>NATIONWIDE DELIVERY ACROSS NIGERIA</span>
+    <span>•</span>
+    <span>WHATSAPP ORDERS: <a href="https://wa.me/2348147709019" target="_blank" rel="noopener">+234 814 770 9019</a></span>
+  </aside>
 
-<header>
-  <div class="nav">
-    <a class="brand" href="#top">
-      <img src="data:image/jpeg;base64,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" alt="SALAMA logo">
-      <span>SALAMA</span>
-    </a>
-    <nav class="navlinks">
+  <!-- Main Header & Navigation -->
+  <header>
+    <div class="nav-container">
+      <a class="brand" href="#top" aria-label="SALAMA Fabrics & Bedding Home">
+        <img src="assets/logo.svg" alt="SALAMA Logo" class="brand-logo-svg">
+        <div class="brand-text">
+          <span class="brand-name">SALAMA</span>
+          <span class="brand-tagline">Fabrics &amp; Bedding</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="navlinks" aria-label="Main Navigation">
+        <a href="#top">Home</a>
+        <a href="#shop">Shop Collection</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">Our Story</a>
+        <a href="#why-us">Why SALAMA</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <button type="button" class="icon-btn" onclick="openSearchDialog()" title="Search products (Press / or Ctrl+K)" aria-label="Open search">
+          🔍
+        </button>
+        <button type="button" class="cart-btn" onclick="openCartDrawer()" aria-label="View shopping bag">
+          <span>🛍️ Bag</span>
+          <span class="cart-count-badge">0</span>
+        </button>
+        <button type="button" class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Toggle mobile menu">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav" id="mobile-menu">
       <a href="#top">Home</a>
-      <a href="#shop">Shop</a>
-      <a href="#categories">Bedding</a>
-      <a href="#categories">Fabrics</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="icons">
-      <span title="Search">🔍</span>
-      <span title="Account">👤</span>
-      <span title="Cart">🛍️ 0</span>
-      <button class="menu-btn" onclick="document.getElementById('mm').classList.toggle('open')">☰</button>
+      <a href="#shop">Shop All Collections</a>
+      <a href="#categories">Browse Categories</a>
+      <a href="#about">Our Story</a>
+      <a href="#why-us">Why Choose Us</a>
+      <a href="#contact">Contact &amp; WhatsApp Support</a>
     </div>
-  </div>
-  <div class="mobile-menu" id="mm">
-    <a href="#top">Home</a><a href="#shop">Shop</a><a href="#categories">Bedding</a>
-    <a href="#categories">Fabrics</a><a href="#about">About</a><a href="#contact">Contact</a>
-  </div>
-</header>
+  </header>
 
-<section class="hero" id="top" style="max-width:none;">
-  <div class="hero-inner">
-    <div class="eyebrow">SALAMA FABRICS & BEDDING</div>
-    <h1>Where Comfort Meets<br>Timeless Elegance.</h1>
-    <p>Transform your home with beautiful fabrics and luxurious bedding, thoughtfully selected to bring comfort, quality and sophistication into every space.</p>
-    <div class="cta-row">
-      <a href="#shop" class="btn btn-gold">Shop the Collection</a>
-      <a href="#about" class="btn btn-outline">Discover SALAMA</a>
+  <main>
+    <!-- Hero Section (2-Column Showcase: Text Left, Company Visual Right) -->
+    <section class="hero" id="top" style="max-width: none;">
+      <div class="hero-wrapper">
+        <!-- Left Column: Hero Content & CTA -->
+        <div class="hero-text-content">
+          <div class="eyebrow">SALAMA FABRICS &amp; BEDDING • ESTABLISHED IN NIGERIA</div>
+          <h1>Where Comfort Meets<br><span class="gold">Timeless Elegance</span></h1>
+          <p>Transform your sanctuary with meticulously selected 1000TC Egyptian cotton bedding, heavyweight brocades, and opulent velvet drapery curated for the refined Nigerian home.</p>
+          
+          <div class="cta-row">
+            <a href="#shop" class="btn btn-gold">Explore Collections</a>
+            <a href="https://wa.me/2348147709019?text=Hello%20SALAMA%2C%20I%20would%20like%20to%20inquire%20about%20your%20fabrics%20and%20bedding%20catalog." 
+               target="_blank" rel="noopener" class="btn btn-whatsapp">
+              <span>💬 Chat on WhatsApp</span>
+            </a>
+          </div>
+
+          <div class="hero-divider"></div>
+
+          <div class="trust-pillars">
+            <span>✦ 100% Certified Egyptian Cotton &amp; Pure Silk</span>
+            <span>✦ Fast Nationwide Doorstep Delivery Across Nigeria</span>
+            <span>✦ Bespoke Tailoring &amp; Cut-to-Length Fabrics</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Company Visual & Brand Showcase -->
+        <div class="hero-visual">
+          <div class="hero-image-frame">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=85" 
+                 alt="SALAMA Fabrics &amp; Luxury Master Bedding" 
+                 class="hero-main-img" 
+                 loading="eager">
+            <div class="hero-img-overlay"></div>
+            
+            <!-- Floating Badge 1: Top Rated -->
+            <div class="hero-floating-badge badge-top">
+              <span class="badge-star">★</span>
+              <div>
+                <strong>4.9 / 5.0 Rating</strong>
+                <small>Trusted by 1,500+ Homes Across Nigeria</small>
+              </div>
+            </div>
+
+            <!-- Floating Badge 2: Brand Tag -->
+            <div class="hero-floating-badge badge-bottom">
+              <span class="badge-icon">✦</span>
+              <div>
+                <strong>SALAMA Master Collection</strong>
+                <small>1000TC Egyptian Cotton • Damasks • Velvet Drapery</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories">
+      <div class="section-head">
+        <div class="tag">CURATED SPACES</div>
+        <h2>Shop by Category</h2>
+        <p>Select a department below to instantly filter our signature fabrics and bedding pieces.</p>
+      </div>
+
+      <div class="cat-grid">
+        <article class="cat-card" onclick="filterByCategory('bedding')">
+          <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80" alt="Luxury Bedding" class="cat-card-img" loading="lazy">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <h3>Luxury Bedding</h3>
+            <p>1000TC sateen duvets, silk sheets, and pillow sets</p>
+            <span class="cat-link">EXPLORE BEDDING &rarr;</span>
+          </div>
+        </article>
+
+        <article class="cat-card" onclick="filterByCategory('fabrics')">
+          <img src="https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=800&q=80" alt="Premium Fabrics" class="cat-card-img" loading="lazy">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <h3>Premium Fabrics</h3>
+            <p>Damask brocades, woven jacquards &amp; plush velvets</p>
+            <span class="cat-link">EXPLORE FABRICS &rarr;</span>
+          </div>
+        </article>
+
+        <article class="cat-card" onclick="filterByCategory('curtains')">
+          <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Curtains" class="cat-card-img" loading="lazy">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <h3>Curtains &amp; Drapes</h3>
+            <p>Thermal blackout velvet &amp; airy sheer linen panels</p>
+            <span class="cat-link">EXPLORE CURTAINS &rarr;</span>
+          </div>
+        </article>
+
+        <article class="cat-card" onclick="filterByCategory('accessories')">
+          <img src="https://images.unsplash.com/photo-1579656381226-5fc0f0100c3b?auto=format&fit=crop&w=800&q=80" alt="Home Accessories" class="cat-card-img" loading="lazy">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <h3>Home Accents</h3>
+            <p>Embroidered throw pillows, runners &amp; luxury cushions</p>
+            <span class="cat-link">EXPLORE ACCENTS &rarr;</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Product Catalog Section -->
+    <section id="shop">
+      <div class="section-head">
+        <div class="tag">SIGNATURE PIECES</div>
+        <h2>The SALAMA Store Collection</h2>
+        <p>Explore our premium inventory. Add items directly to your shopping bag or complete your order seamlessly via WhatsApp.</p>
+      </div>
+
+      <!-- Controls: Category Pills & Sort -->
+      <div class="catalog-controls">
+        <div class="filter-tabs" role="tablist" aria-label="Product Categories">
+          <button type="button" class="filter-tab active" data-category="all" role="tab">
+            <span>All Pieces</span>
+            <span class="tab-count">12</span>
+          </button>
+          <button type="button" class="filter-tab" data-category="bedding" role="tab">
+            <span>Bedding</span>
+            <span class="tab-count">4</span>
+          </button>
+          <button type="button" class="filter-tab" data-category="fabrics" role="tab">
+            <span>Fabrics</span>
+            <span class="tab-count">3</span>
+          </button>
+          <button type="button" class="filter-tab" data-category="curtains" role="tab">
+            <span>Curtains</span>
+            <span class="tab-count">3</span>
+          </button>
+          <button type="button" class="filter-tab" data-category="accessories" role="tab">
+            <span>Accessories</span>
+            <span class="tab-count">2</span>
+          </button>
+        </div>
+
+        <div class="sort-wrapper">
+          <label for="catalog-sort">Sort by:</label>
+          <select id="catalog-sort" class="sort-select" aria-label="Sort products">
+            <option value="featured">Featured First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+            <option value="name">Alphabetical (A-Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Product Cards Grid -->
+      <div class="prod-grid" id="products-grid">
+        <!-- Rendered dynamically by js/app.js -->
+      </div>
+    </section>
+
+    <!-- Why SALAMA Section -->
+    <section id="why-us" style="padding-top: 20px;">
+      <div class="section-head">
+        <div class="tag">OUR PROMISE</div>
+        <h2>Why Choose SALAMA</h2>
+        <p>We pride ourselves on unmatched material integrity, bespoke attention to detail, and seamless customer service.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon">✨</div>
+          <h4>Long-Staple Integrity</h4>
+          <p>We test and source authentic Egyptian cotton, pure mulberry silk, and heavyweight damasks that maintain their luster wash after wash.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🚚</div>
+          <h4>Nationwide Delivery</h4>
+          <p>Prompt, secure dispatch across Lagos, Abuja, Port Harcourt, Kano, and all 36 states with reliable tracking updates.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">✂️</div>
+          <h4>Bespoke Customization</h4>
+          <p>Need custom curtain drop lengths or specific fabric yardage? Our master tailors accommodate custom dimensions effortlessly.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">💬</div>
+          <h4>Direct WhatsApp Concierge</h4>
+          <p>Real-time personalized consultations, fabric advice, and swift order confirmations directly with our design consultants.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand Story Section -->
+    <section class="about-section" id="about" style="max-width: none;">
+      <div class="about-grid">
+        <div class="about-content">
+          <div class="tag" style="color:var(--gold); letter-spacing:.22em; font-size:.74rem; font-weight:700; margin-bottom:12px;">OUR HERITAGE</div>
+          <h2>A Touch of Elegance.<br>A Feeling of Home.</h2>
+          <p>At SALAMA Fabrics &amp; Bedding, we believe that your home is your sanctuary. Everyday comfort should never come at the expense of breathtaking aesthetics. That is why every thread count, fabric weave, and finish is chosen with uncompromising standards of artistry and durability.</p>
+          <p>Whether you are outfitting a newly built home, refreshing your bedroom with hotel-quality linens, or specifying textiles for an upscale interior project, our curated selections bring warmth and prestige to your spaces.</p>
+          <div style="display: flex; gap: 14px; margin-top: 26px; flex-wrap: wrap;">
+            <a href="#shop" class="btn btn-gold">Browse The Collection</a>
+            <a href="https://wa.me/2348147709019" target="_blank" rel="noopener" class="btn btn-outline" style="color: var(--navy); border-color: var(--navy);">Speak with a Consultant</a>
+          </div>
+        </div>
+        <div class="about-visual-box">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=80" alt="SALAMA Fabrics Bedroom Ambience" loading="lazy">
+          <div class="about-badge-card">
+            <h4>Bespoke Living</h4>
+            <p>Curated textiles and bedding handcrafted to elevate your personal sanctuary.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       Native <dialog> Modals
+       ========================================================================== -->
+
+  <!-- 1. Quick View Modal Dialog -->
+  <dialog id="quick-view-dialog" aria-labelledby="modal-title">
+    <button type="button" class="modal-close-btn" onclick="closeDialog('quick-view-dialog')" aria-label="Close modal">✕</button>
+    <div class="modal-layout">
+      <div class="modal-media">
+        <img id="modal-img" src="" alt="Product Preview">
+      </div>
+      <div class="modal-details">
+        <div class="modal-cat" id="modal-cat">Category</div>
+        <h2 class="modal-title" id="modal-title">Product Name</h2>
+        <div class="modal-price" id="modal-price">₦0</div>
+        <p class="modal-desc" id="modal-desc">Product description goes here.</p>
+
+        <!-- Color Selection -->
+        <div class="modal-options-group">
+          <label class="modal-label">Color / Finish: <span id="selected-color-name" style="font-weight:400; color:var(--muted);"></span></label>
+          <div class="color-swatches" id="modal-colors"></div>
+        </div>
+
+        <!-- Size / Dimensions Selection -->
+        <div class="modal-options-group">
+          <label class="modal-label" for="modal-size">Size / Dimensions:</label>
+          <select id="modal-size" class="size-select"></select>
+        </div>
+
+        <!-- Quantity Stepper -->
+        <div class="modal-options-group" style="display:flex; align-items:center; gap:16px;">
+          <label class="modal-label" style="margin:0;">Quantity:</label>
+          <div class="quantity-stepper">
+            <button type="button" class="qty-btn" onclick="adjustModalQty(-1)" aria-label="Decrease quantity">−</button>
+            <span class="qty-val" id="modal-qty-val">1</span>
+            <button type="button" class="qty-btn" onclick="adjustModalQty(1)" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="modal-actions">
+          <button type="button" class="btn btn-gold" onclick="addModalItemToCart()">Add to Bag</button>
+          <button type="button" class="btn btn-whatsapp" onclick="orderModalItemWhatsApp()">Order on WhatsApp</button>
+        </div>
+
+        <!-- Product Specs Accordion -->
+        <ul class="modal-specs-list" id="modal-specs"></ul>
+      </div>
     </div>
-    <div class="divider"></div>
-    <div class="trust">
-      <span>Quality You Can Trust</span>
-      <span>Comfort in Every Detail</span>
-      <span>Elegance for Every Home</span>
+  </dialog>
+
+  <!-- 2. Live Search Modal Dialog -->
+  <dialog id="search-dialog" aria-labelledby="search-dialog-title">
+    <div class="search-modal-box">
+      <div class="search-input-wrapper">
+        <span>🔍</span>
+        <input type="search" id="search-input" class="search-input" placeholder="Search bedding, brocade, curtains, silk..." autocomplete="off">
+        <button type="button" class="modal-close-btn" style="position:static; width:30px; height:30px; font-size:1rem;" onclick="closeDialog('search-dialog')" aria-label="Close search">✕</button>
+      </div>
+      <div class="search-results-list" id="search-results-list">
+        <!-- Live search results appear here -->
+      </div>
     </div>
-  </div>
-</section>
+  </dialog>
 
-<section id="categories">
-  <div class="section-head"><div class="tag">EXPLORE</div><h2>Shop by Category</h2></div>
-  <div class="cat-grid">
-    <div class="cat-card"><div class="tone"></div><div class="cat-label"><h3>Luxury Bedding</h3><p>Duvets, sheets & sets</p><span class="link">SHOP NOW →</span></div></div>
-    <div class="cat-card"><div class="tone"></div><div class="cat-label"><h3>Premium Fabrics</h3><p>By the metre, made to order</p><span class="link">SHOP NOW →</span></div></div>
-    <div class="cat-card"><div class="tone"></div><div class="cat-label"><h3>Curtains</h3><p>Elegant window dressing</p><span class="link">SHOP NOW →</span></div></div>
-    <div class="cat-card"><div class="tone"></div><div class="cat-label"><h3>Home Accessories</h3><p>Finishing touches</p><span class="link">SHOP NOW →</span></div></div>
-  </div>
-</section>
+  <!-- 3. Checkout via WhatsApp Modal Dialog -->
+  <dialog id="checkout-dialog" aria-labelledby="checkout-title">
+    <div class="checkout-modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <h3 id="checkout-title">Complete WhatsApp Order</h3>
+          <p class="subtitle">Enter your delivery details to generate an itemized WhatsApp order.</p>
+        </div>
+        <button type="button" class="modal-close-btn" style="position:static; width:32px; height:32px;" onclick="closeDialog('checkout-dialog')" aria-label="Close modal">✕</button>
+      </div>
 
-<section id="shop">
-  <div class="section-head"><div class="tag">BEST SELLERS</div><h2>Featured Products</h2></div>
-  <div class="prod-grid">
-    <div class="prod-card"><div class="prod-img"><span class="badge">NEW</span></div><div class="prod-body"><h4>Egyptian Cotton Duvet Set</h4><div class="price">₦45,000</div></div></div>
-    <div class="prod-card"><div class="prod-img"><span class="badge">SALE</span></div><div class="prod-body"><h4>Velvet Curtain Pair</h4><div class="price">₦28,000 <span class="old">₦34,000</span></div></div></div>
-    <div class="prod-card"><div class="prod-img"></div><div class="prod-body"><h4>Woven Fabric (per metre)</h4><div class="price">₦6,500</div></div></div>
-    <div class="prod-card"><div class="prod-img"></div><div class="prod-body"><h4>Silk-Feel Pillow Set</h4><div class="price">₦15,000</div></div></div>
-  </div>
-  <p class="demo-note">Sample products shown for demonstration purposes.</p>
-</section>
+      <form id="checkout-form" onsubmit="processCheckoutOrder(event)">
+        <div class="form-group">
+          <label for="cust-name">Full Name *</label>
+          <input type="text" id="cust-name" required placeholder="e.g. Amina Bello">
+        </div>
 
-<section class="about" id="about">
-  <div class="about-grid">
-    <div>
-      <div class="tag" style="color:var(--gold);letter-spacing:.2em;font-size:.72rem;font-weight:600;">OUR STORY</div>
-      <h2>A Touch of Elegance.<br>A Feeling of Home.</h2>
-      <p>At SALAMA Fabrics & Bedding, we believe that comfort is more than a feeling — it is an essential part of everyday living. Our collections bring together quality, beauty and timeless elegance to help you create spaces that feel uniquely yours.</p>
-      <a href="#shop" class="btn btn-gold" style="color:var(--navy);display:inline-block;">Explore Our Products</a>
+        <div class="form-group">
+          <label for="cust-phone">WhatsApp Phone Number *</label>
+          <input type="tel" id="cust-phone" required placeholder="e.g. 0814 770 9019">
+        </div>
+
+        <div class="form-group">
+          <label for="cust-state">Delivery State / City *</label>
+          <select id="cust-state" required>
+            <option value="Lagos State">Lagos State</option>
+            <option value="Abuja (FCT)">Abuja (FCT)</option>
+            <option value="Rivers (Port Harcourt)">Rivers (Port Harcourt)</option>
+            <option value="Kano State">Kano State</option>
+            <option value="Oyo (Ibadan)">Oyo (Ibadan)</option>
+            <option value="Enugu State">Enugu State</option>
+            <option value="Delta State">Delta State</option>
+            <option value="Kaduna State">Kaduna State</option>
+            <option value="Ogun State">Ogun State</option>
+            <option value="Other State (Nationwide Dispatch)">Other State (Nationwide Dispatch)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-address">Street / Doorstep Delivery Address *</label>
+          <textarea id="cust-address" rows="2" required placeholder="Apartment / House number, street name, area"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-notes">Order Notes or Custom Sizing (Optional)</label>
+          <input type="text" id="cust-notes" placeholder="e.g. Preferred delivery time, custom curtain drop length">
+        </div>
+
+        <!-- Order Summary Box -->
+        <div class="checkout-order-summary" id="checkout-summary-box"></div>
+
+        <button type="submit" class="checkout-btn">
+          <span>💬 Send Order to WhatsApp (+234 814 770 9019)</span>
+        </button>
+      </form>
     </div>
-    <div class="about-visual"></div>
-  </div>
-</section>
+  </dialog>
 
-<footer id="contact">
-  <div class="foot-grid">
-    <div>
-      <div class="foot-brand">SALAMA</div>
-      <p style="font-size:.85rem;line-height:1.7;">Comfort, quality and elegance — a modern fabrics & bedding brand.</p>
+  <!-- ==========================================================================
+       Slide-out Shopping Bag Drawer
+       ========================================================================== -->
+  <div class="cart-backdrop" id="cart-backdrop"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping Bag">
+    <div class="cart-header">
+      <h3>
+        <span>🛍️ Your Shopping Bag</span>
+        <span id="drawer-cart-count" style="font-size:0.9rem; font-weight:400; color:var(--muted);">(0)</span>
+      </h3>
+      <button type="button" class="close-drawer-btn" onclick="closeCartDrawer()" aria-label="Close cart drawer">✕</button>
     </div>
-    <div><h4>Shop</h4><ul><li><a href="#categories">Bedding</a></li><li><a href="#categories">Fabrics</a></li><li><a href="#categories">Curtains</a></li></ul></div>
-    <div><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul></div>
-    <div><h4>Contact</h4><ul><li>+234 814 770 9019</li><li>WhatsApp orders welcome</li></ul></div>
-  </div>
-  <div class="foot-bottom">© <span id="yr"></span> SALAMA Fabrics & Bedding. All rights reserved.</div>
-</footer>
 
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+    <!-- Scrollable Items List -->
+    <div class="cart-items-list" id="cart-items-list"></div>
+
+    <!-- Drawer Footer -->
+    <div class="cart-footer">
+      <div class="delivery-note">
+        <span>✓</span> Nationwide doorstep delivery available across Nigeria
+      </div>
+      <div class="cart-summary-row total">
+        <span>Estimated Subtotal:</span>
+        <span id="cart-subtotal-val">₦0</span>
+      </div>
+      <p style="font-size:0.75rem; color:var(--muted); margin: 6px 0 16px;">Final delivery fees are confirmed on WhatsApp based on your destination address.</p>
+      
+      <button type="button" class="checkout-btn" onclick="openCheckoutModal()">
+        <span>💬 Proceed to WhatsApp Checkout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Floating WhatsApp Assistance Button -->
+  <a href="https://wa.me/2348147709019?text=Hello%20SALAMA%20Team%2C%20I%20need%20assistance%20with%20my%20order." 
+     target="_blank" rel="noopener" class="floating-whatsapp" aria-label="Chat on WhatsApp">
+    <span>💬 WhatsApp Support</span>
+  </a>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="foot-grid">
+      <div class="foot-brand-col">
+        <div class="brand" style="margin-bottom: 12px;">
+          <img src="assets/logo.svg" alt="SALAMA Logo" style="width:40px; height:40px;">
+          <span class="brand-name" style="color:var(--white);">SALAMA</span>
+        </div>
+        <p>Premium fabrics and luxury bedding designed with uncompromising quality, elegance, and comfort for discerning homes across Nigeria.</p>
+        <p style="font-size:0.8rem; color:var(--gold-light);">Registered in Nigeria • Bespoke Textile Specialists</p>
+      </div>
+
+      <div>
+        <h4>Collections</h4>
+        <ul>
+          <li><a href="#shop" onclick="filterByCategory('bedding')">Luxury Bedding Sets</a></li>
+          <li><a href="#shop" onclick="filterByCategory('fabrics')">Damask &amp; Brocades</a></li>
+          <li><a href="#shop" onclick="filterByCategory('curtains')">Tailored Curtains</a></li>
+          <li><a href="#shop" onclick="filterByCategory('accessories')">Silk Throw Cushions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#about">Our Heritage</a></li>
+          <li><a href="#why-us">Fabric Quality Guide</a></li>
+          <li><a href="https://wa.me/2348147709019" target="_blank" rel="noopener">Custom Tailoring Inquiries</a></li>
+          <li><a href="https://wa.me/2348147709019" target="_blank" rel="noopener">Nationwide Shipping Rates</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Direct Concierge</h4>
+        <p style="font-size:0.85rem; color:#DCD6C7; margin-bottom:12px;">
+          WhatsApp &amp; Orders:<br>
+          <strong style="color:var(--gold-light); font-size:1rem;">+234 814 770 9019</strong>
+        </p>
+        <p style="font-size:0.8rem; color:#9DA4B6; margin-bottom:16px;">Subscribe for exclusive fabric arrivals and seasonal VIP catalogues:</p>
+        <form id="newsletter-form" class="newsletter-form">
+          <input type="email" class="newsletter-input" required placeholder="Enter your email" aria-label="Email address for newsletter">
+          <button type="submit" class="newsletter-btn">Join</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <div>&copy; <span id="current-year"></span> SALAMA Fabrics &amp; Bedding. All rights reserved.</div>
+      <div>Designed with Comfort, Quality &amp; Timeless Elegance.</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function filterByCategory(category) {
+      AppState.activeCategory = category;
+      document.querySelectorAll(".filter-tab").forEach(tab => {
+        tab.classList.toggle("active", tab.dataset.category === category);
+      });
+      renderProducts();
+      const shopEl = document.getElementById("shop");
+      if (shopEl) shopEl.scrollIntoView({ behavior: "smooth" });
+    }
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
