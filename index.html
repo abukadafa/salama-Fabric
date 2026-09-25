@@ -11,6 +11,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
   
+  <!-- PWA & Mobile Web App Meta -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#071D40">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SALAMA">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+  
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -69,6 +80,9 @@
       <a href="#about">Our Story</a>
       <a href="#why-us">Why Choose Us</a>
       <a href="#contact">Contact &amp; WhatsApp Support</a>
+      <button type="button" class="mobile-install-btn" id="mobile-install-btn" onclick="triggerPwaInstall()">
+        <span>📲 Install SALAMA App</span>
+      </button>
     </div>
   </header>
 
@@ -411,6 +425,29 @@
     </div>
   </dialog>
 
+  <!-- 4. PWA iOS & Mobile Install Guidance Modal Dialog -->
+  <dialog id="pwa-install-dialog" aria-labelledby="pwa-dialog-title">
+    <div class="pwa-install-modal-content">
+      <div style="font-size: 2.2rem; margin-bottom: 6px;">📲</div>
+      <h3 id="pwa-dialog-title" style="font-size: 1.25rem; margin-bottom: 6px; color: var(--navy);">Install SALAMA App</h3>
+      <p style="font-size: 0.86rem; color: var(--muted); line-height: 1.5; margin-bottom: 18px;">
+        Install SALAMA Fabrics &amp; Bedding on your home screen for rapid offline access and a full-screen mobile app experience.
+      </p>
+      <div class="pwa-instructions-box">
+        <p style="margin-bottom: 10px;">
+          <strong>Apple iOS (Safari):</strong><br>
+          1. Tap the <strong>Share</strong> button <span style="font-size:1.1rem;">⎋</span> at the bottom of Safari.<br>
+          2. Scroll down &amp; tap <strong>"Add to Home Screen"</strong> ➕.
+        </p>
+        <p>
+          <strong>Android (Chrome):</strong><br>
+          Tap the three dots <strong>⋮</strong> &amp; select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.
+        </p>
+      </div>
+      <button type="button" class="btn btn-gold" style="width: 100%; justify-content: center;" onclick="closeDialog('pwa-install-dialog')">Got it</button>
+    </div>
+  </dialog>
+
   <!-- ==========================================================================
        Slide-out Shopping Bag Drawer
        ========================================================================== -->
@@ -501,6 +538,34 @@
       <div>Designed with Comfort, Quality &amp; Timeless Elegance.</div>
     </div>
   </footer>
+
+  <!-- Mobile App Bottom Navigation Bar (Visible on phones <= 768px) -->
+  <nav class="mobile-bottom-bar" aria-label="Mobile Navigation">
+    <a href="#top" class="mobile-tab" id="mobile-tab-home" aria-label="Home">
+      <span class="tab-icon">🏛️</span>
+      <span class="tab-label">Home</span>
+    </a>
+    <a href="#shop" class="mobile-tab" id="mobile-tab-shop" aria-label="Shop">
+      <span class="tab-icon">🏷️</span>
+      <span class="tab-label">Shop</span>
+    </a>
+    <button type="button" class="mobile-tab" onclick="openSearchDialog()" aria-label="Search Collection">
+      <span class="tab-icon">🔍</span>
+      <span class="tab-label">Search</span>
+    </button>
+    <button type="button" class="mobile-tab" onclick="openCartDrawer()" aria-label="Shopping Bag">
+      <span class="tab-icon" style="position:relative;">
+        🛍️
+        <span class="mobile-cart-badge cart-count-badge">0</span>
+      </span>
+      <span class="tab-label">Bag</span>
+    </button>
+    <a href="https://wa.me/2348147709019?text=Hello%20SALAMA%20Team%2C%20I%20would%20like%20to%20inquire%20about%20your%20fabrics%20and%20bedding." 
+       target="_blank" rel="noopener" class="mobile-tab whatsapp-tab" aria-label="WhatsApp Concierge">
+      <span class="tab-icon">💬</span>
+      <span class="tab-label">WhatsApp</span>
+    </a>
+  </nav>
 
   <!-- Scripts -->
   <script src="js/products.js"></script>

@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initModals();
   initMobileMenu();
   initContactForm();
+  initPwa();
 });
 
 /* ==========================================================================
@@ -721,3 +722,79 @@ function showToast(message) {
     setTimeout(() => toast.remove(), 250);
   }, 3500);
 }
+
+/* ==========================================================================
+   Progressive Web App (PWA) Registration & Install Prompt
+   ========================================================================== */
+let deferredPrompt = null;
+
+function initPwa() {
+  // Register Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((reg) => {
+          console.log('[PWA] Service Worker registered. Scope:', reg.scope);
+        })
+        .catch((err) => {
+          console.warn('[PWA] Service Worker registration failed:', err);
+        });
+    });
+  }
+
+  // Intercept beforeinstallprompt for Chrome / Android / Desktop PWA
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtns = document.querySelectorAll('.mobile-install-btn');
+    installBtns.forEach(btn => btn.style.display = 'inline-flex');
+  });
+
+  // Track app installation
+  window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    showToast('SALAMA Fabrics app installed successfully! ✨');
+    const installBtns = document.querySelectorAll('.mobile-install-btn');
+    installBtns.forEach(btn => btn.style.display = 'none');
+  });
+
+  // Bottom navigation tab active state tracker on scroll
+  const homeTab = document.getElementById('mobile-tab-home');
+  const shopTab = document.getElementById('mobile-tab-shop');
+  const shopSection = document.getElementById('shop');
+
+  if (homeTab && shopTab && shopSection) {
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY;
+      const shopTop = shopSection.offsetTop - 120;
+      if (scrollPos >= shopTop) {
+        shopTab.classList.add('active');
+        homeTab.classList.remove('active');
+      } else {
+        homeTab.classList.add('active');
+        shopTab.classList.remove('active');
+      }
+    }, { passive: true });
+  }
+}
+
+function triggerPwaInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        showToast('Thank you for installing SALAMA Fabrics & Bedding!');
+      }
+      deferredPrompt = null;
+    });
+  } else {
+    // Show iOS / manual browser install modal
+    const dialog = document.getElementById('pwa-install-dialog');
+    if (dialog && typeof dialog.showModal === 'function') {
+      dialog.showModal();
+    } else {
+      showToast('To install: Tap browser menu & select "Add to Home screen" 📲');
+    }
+  }
+}
+
