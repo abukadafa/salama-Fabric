@@ -367,47 +367,54 @@
     </div>
   </dialog>
 
-  <!-- 3. Checkout via WhatsApp Modal Dialog -->
+  <!-- 3. Secure Checkout & Payment Modal Dialog -->
   <dialog id="checkout-dialog" aria-labelledby="checkout-title">
     <div class="checkout-modal-content">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 6px;">
         <div>
-          <h3 id="checkout-title">Complete WhatsApp Order</h3>
-          <p class="subtitle">Enter your delivery details to generate an itemized WhatsApp order.</p>
+          <h3 id="checkout-title" style="font-size: 1.35rem; color: var(--navy);">Secure Checkout &amp; Order</h3>
+          <p class="subtitle" style="font-size: 0.85rem; color: var(--muted); margin-top: 3px;">Enter your delivery details and choose your payment option.</p>
         </div>
         <button type="button" class="modal-close-btn" style="position:static; width:32px; height:32px;" onclick="closeDialog('checkout-dialog')" aria-label="Close modal">✕</button>
       </div>
 
       <form id="checkout-form" onsubmit="processCheckoutOrder(event)">
-        <div class="form-group">
-          <label for="cust-name">Full Name *</label>
-          <input type="text" id="cust-name" required placeholder="e.g. Amina Bello">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label for="cust-name">Full Name *</label>
+            <input type="text" id="cust-name" required placeholder="e.g. Amina Bello">
+          </div>
+          <div class="form-group">
+            <label for="cust-email">Email Address *</label>
+            <input type="email" id="cust-email" required placeholder="e.g. amina@example.com">
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="cust-phone">WhatsApp Phone Number *</label>
-          <input type="tel" id="cust-phone" required placeholder="e.g. 0814 770 9019">
-        </div>
-
-        <div class="form-group">
-          <label for="cust-state">Delivery State / City *</label>
-          <select id="cust-state" required>
-            <option value="Lagos State">Lagos State</option>
-            <option value="Abuja (FCT)">Abuja (FCT)</option>
-            <option value="Rivers (Port Harcourt)">Rivers (Port Harcourt)</option>
-            <option value="Kano State">Kano State</option>
-            <option value="Oyo (Ibadan)">Oyo (Ibadan)</option>
-            <option value="Enugu State">Enugu State</option>
-            <option value="Delta State">Delta State</option>
-            <option value="Kaduna State">Kaduna State</option>
-            <option value="Ogun State">Ogun State</option>
-            <option value="Other State (Nationwide Dispatch)">Other State (Nationwide Dispatch)</option>
-          </select>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label for="cust-phone">WhatsApp Phone Number *</label>
+            <input type="tel" id="cust-phone" required placeholder="e.g. 0814 770 9019">
+          </div>
+          <div class="form-group">
+            <label for="cust-state">Delivery State / City *</label>
+            <select id="cust-state" required>
+              <option value="Lagos State">Lagos State</option>
+              <option value="Abuja (FCT)">Abuja (FCT)</option>
+              <option value="Rivers (Port Harcourt)">Rivers (Port Harcourt)</option>
+              <option value="Kano State">Kano State</option>
+              <option value="Oyo (Ibadan)">Oyo (Ibadan)</option>
+              <option value="Enugu State">Enugu State</option>
+              <option value="Delta State">Delta State</option>
+              <option value="Kaduna State">Kaduna State</option>
+              <option value="Ogun State">Ogun State</option>
+              <option value="Other State (Nationwide Dispatch)">Other State (Nationwide Dispatch)</option>
+            </select>
+          </div>
         </div>
 
         <div class="form-group">
           <label for="cust-address">Street / Doorstep Delivery Address *</label>
-          <textarea id="cust-address" rows="2" required placeholder="Apartment / House number, street name, area"></textarea>
+          <textarea id="cust-address" rows="2" required placeholder="Apartment / House number, street name, estate, area"></textarea>
         </div>
 
         <div class="form-group">
@@ -415,11 +422,64 @@
           <input type="text" id="cust-notes" placeholder="e.g. Preferred delivery time, custom curtain drop length">
         </div>
 
+        <!-- Payment Option Selector -->
+        <div class="form-group" style="margin-top: 18px;">
+          <label class="modal-label" style="font-weight: 700; color: var(--navy); margin-bottom: 10px; display: block;">Select Payment Option *</label>
+          <div class="payment-methods-grid">
+            <!-- 1. Paystack -->
+            <label class="payment-method-card active" for="pay-method-paystack" id="label-paystack">
+              <input type="radio" id="pay-method-paystack" name="payment-method" value="paystack" checked onchange="onPaymentMethodChanged('paystack')">
+              <div class="method-info">
+                <div class="method-title">
+                  <span>💳 Pay Online with Paystack</span>
+                  <span class="method-badge">Instant</span>
+                </div>
+                <p class="method-desc">Nigerian Debit Cards (Mastercard, Visa, Verve), Direct Bank Transfer, USSD, Apple Pay</p>
+              </div>
+            </label>
+
+            <!-- 2. Flutterwave -->
+            <label class="payment-method-card" for="pay-method-flutterwave" id="label-flutterwave">
+              <input type="radio" id="pay-method-flutterwave" name="payment-method" value="flutterwave" onchange="onPaymentMethodChanged('flutterwave')">
+              <div class="method-info">
+                <div class="method-title">
+                  <span>🦋 Pay Online with Flutterwave</span>
+                  <span class="method-badge">Instant</span>
+                </div>
+                <p class="method-desc">Debit Card, Bank Transfer, USSD, Barter, African Mobile Money</p>
+              </div>
+            </label>
+
+            <!-- 3. Payment on Delivery -->
+            <label class="payment-method-card" for="pay-method-pod" id="label-pod">
+              <input type="radio" id="pay-method-pod" name="payment-method" value="pod" onchange="onPaymentMethodChanged('pod')">
+              <div class="method-info">
+                <div class="method-title">
+                  <span>🚚 Payment on Delivery (POD)</span>
+                  <span class="method-badge pod">Doorstep</span>
+                </div>
+                <p class="method-desc">Inspect your fabrics/bedding upon arrival &amp; pay via Cash or Mobile POS transfer to rider</p>
+              </div>
+            </label>
+
+            <!-- 4. Direct WhatsApp Order -->
+            <label class="payment-method-card" for="pay-method-whatsapp" id="label-whatsapp">
+              <input type="radio" id="pay-method-whatsapp" name="payment-method" value="whatsapp" onchange="onPaymentMethodChanged('whatsapp')">
+              <div class="method-info">
+                <div class="method-title">
+                  <span>💬 Direct WhatsApp Order</span>
+                </div>
+                <p class="method-desc">Send itemized order to WhatsApp for custom tailoring consultation or manual direct bank transfer</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
         <!-- Order Summary Box -->
         <div class="checkout-order-summary" id="checkout-summary-box"></div>
 
-        <button type="submit" class="checkout-btn">
-          <span>💬 Send Order to WhatsApp (+234 814 770 9019)</span>
+        <button type="submit" class="checkout-btn" id="checkout-submit-btn">
+          <span id="checkout-btn-text">💳 Pay with Paystack</span>
         </button>
       </form>
     </div>
@@ -445,6 +505,52 @@
         </p>
       </div>
       <button type="button" class="btn btn-gold" style="width: 100%; justify-content: center;" onclick="closeDialog('pwa-install-dialog')">Got it</button>
+    </div>
+  </dialog>
+
+  <!-- 5. Order Success & Payment Receipt Modal Dialog -->
+  <dialog id="order-success-dialog" aria-labelledby="receipt-dialog-title">
+    <div class="receipt-modal-box">
+      <div class="receipt-icon">🎉</div>
+      <h3 id="receipt-dialog-title" class="receipt-title">Order Confirmed!</h3>
+      <p class="receipt-subtitle" id="receipt-subtitle">Thank you for choosing SALAMA Fabrics &amp; Bedding.</p>
+
+      <div class="receipt-card">
+        <div class="receipt-row">
+          <span>Order Reference:</span>
+          <strong id="receipt-ref" style="font-family: monospace; color: var(--navy); font-size: 0.95rem;">SALAMA-0000</strong>
+        </div>
+        <div class="receipt-row">
+          <span>Payment Option:</span>
+          <strong id="receipt-method">Paystack</strong>
+        </div>
+        <div class="receipt-row">
+          <span>Status:</span>
+          <span class="receipt-status-badge" id="receipt-status">Paid &amp; Verified</span>
+        </div>
+        <div class="receipt-row">
+          <span>Customer:</span>
+          <span id="receipt-customer">Amina Bello</span>
+        </div>
+        <div class="receipt-row">
+          <span>Delivery State:</span>
+          <span id="receipt-address">Lagos State</span>
+        </div>
+        <div class="receipt-divider"></div>
+        <div class="receipt-row total">
+          <span>Total Amount:</span>
+          <strong id="receipt-amount" style="color: var(--navy); font-size: 1.15rem;">₦0</strong>
+        </div>
+      </div>
+
+      <div class="receipt-actions">
+        <button type="button" class="btn btn-whatsapp" id="receipt-whatsapp-btn" style="width: 100%; justify-content: center;">
+          <span>💬 Track &amp; Dispatch via WhatsApp</span>
+        </button>
+        <button type="button" class="btn btn-outline" style="width: 100%; justify-content: center; margin-top: 10px; color: var(--navy); border-color: var(--border);" onclick="closeDialog('order-success-dialog')">
+          <span>Continue Shopping</span>
+        </button>
+      </div>
     </div>
   </dialog>
 
@@ -568,6 +674,9 @@
   </nav>
 
   <!-- Scripts -->
+  <!-- Payment Gateway SDKs (Paystack & Flutterwave) -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
   <script src="js/products.js"></script>
   <script src="js/app.js"></script>
   <script>
