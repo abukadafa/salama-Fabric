@@ -10,7 +10,12 @@ const PAYMENT_CONFIG = {
   flutterwavePublicKey: "FLWPUBK_TEST-5f80b2a759160d5b74c8c7f9-X",
   businessName: "SALAMA Fabrics & Bedding",
   businessLogo: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=150&q=80",
-  whatsappNumber: "2348147709019"
+  whatsappNumber: "2348147709019",
+  bankDetails: {
+    bankName: "Guaranty Trust Bank (GTBank)",
+    accountName: "SALAMA Fabrics & Bedding Ltd",
+    accountNumber: "0147709019"
+  }
 };
 
 // Application State
@@ -634,6 +639,12 @@ function onPaymentMethodChanged(method) {
     radio.checked = true;
   }
 
+  // Toggle bank transfer details box
+  const bankBox = document.getElementById("bank-details-box");
+  if (bankBox) {
+    bankBox.style.display = (method === "bank_transfer") ? "block" : "none";
+  }
+
   updateCheckoutButtonText();
 }
 
@@ -650,6 +661,9 @@ function updateCheckoutButtonText() {
     case "flutterwave":
       btnText.textContent = `🦋 Pay ${total} with Flutterwave`;
       break;
+    case "bank_transfer":
+      btnText.textContent = `🏛️ Confirm Bank Transfer (${total})`;
+      break;
     case "pod":
       btnText.textContent = `🚚 Confirm Order (Pay on Delivery)`;
       break;
@@ -659,6 +673,20 @@ function updateCheckoutButtonText() {
     default:
       btnText.textContent = `Proceed to Payment`;
   }
+}
+
+function copySalamaAccount() {
+  const accountNum = PAYMENT_CONFIG.bankDetails ? PAYMENT_CONFIG.bankDetails.accountNumber : "0147709019";
+  navigator.clipboard.writeText(accountNum).then(() => {
+    const btn = document.getElementById("copy-btn-text");
+    if (btn) {
+      btn.textContent = "✓ Copied!";
+      setTimeout(() => { btn.textContent = "📋 Copy"; }, 2500);
+    }
+    showToast(`Account ${accountNum} copied to clipboard!`);
+  }).catch(() => {
+    showToast(`Account: ${accountNum}`);
+  });
 }
 
 function processCheckoutOrder(event) {
@@ -702,6 +730,8 @@ function processCheckoutOrder(event) {
     initiatePaystackPayment(orderData);
   } else if (method === "flutterwave") {
     initiateFlutterwavePayment(orderData);
+  } else if (method === "bank_transfer") {
+    confirmBankTransferOrder(orderData);
   } else if (method === "pod") {
     confirmPodOrder(orderData);
   } else {
@@ -711,23 +741,22 @@ function processCheckoutOrder(event) {
 
 // 1. Paystack Inline Checkout
 function initiatePaystackPayment(orderData) {
-  if (typeof PaystackPop === "undefined") {
-    showToast("Paystack payment SDK is loading or unavailable. Redirecting via WhatsApp...");
-    sendWhatsAppDirectOrder(orderData);
-    return;
-  }
+  // CRITICAL FIX: Close native dialog first so the browser top layer doesn't trap or obscure the Paystack iframe
+  closeDialog("checkout-dialog");
 
-  const submitBtn = document.getElementById("checkout-submit-btn");
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.style.opacity = "0.7";
+  showToast("Opening secure Paystack checkout...");
+
+  if (typeof PaystackPop === "undefined") {
+    showToast("Paystack SDK not loaded. Switching to Direct Bank Transfer...");
+    confirmBankTransferOrder(orderData);
+    return;
   }
 
   try {
     const handler = PaystackPop.setup({
       key: PAYMENT_CONFIG.paystackPublicKey,
       email: orderData.email,
-      amount: Math.round(orderData.amount * 100), // Paystack accepts amount in Kobo
+      amount: Math.round(orderData.amount * 100), // Kobo
       currency: "NGN",
       ref: orderData.ref,
       metadata: {
@@ -739,46 +768,37 @@ function initiatePaystackPayment(orderData) {
         ]
       },
       callback: function(response) {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.style.opacity = "1";
-        }
         const txRef = response.reference || response.trxref || orderData.ref;
         handlePaymentSuccess("Paystack Online", txRef, orderData, "Paid & Verified (Instant)");
       },
       onClose: function() {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.style.opacity = "1";
+        showToast("Payment window closed. Reopening checkout options...");
+        const dialog = document.getElementById("checkout-dialog");
+        if (dialog && typeof dialog.showModal === "function") {
+          dialog.showModal();
         }
-        showToast("Payment window closed. You can retry or choose Payment on Delivery.");
       }
     });
 
     handler.openIframe();
   } catch (err) {
     console.error("Paystack error:", err);
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.style.opacity = "1";
-    }
-    showToast("Could not launch Paystack. Opening WhatsApp order...");
-    sendWhatsAppDirectOrder(orderData);
+    showToast("Paystack unavailable. Switching to Direct Bank Transfer...");
+    confirmBankTransferOrder(orderData);
   }
 }
 
 // 2. Flutterwave v3 Inline Checkout
 function initiateFlutterwavePayment(orderData) {
-  if (typeof FlutterwaveCheckout === "undefined") {
-    showToast("Flutterwave payment SDK is loading or unavailable. Redirecting via WhatsApp...");
-    sendWhatsAppDirectOrder(orderData);
-    return;
-  }
+  // CRITICAL FIX: Close native dialog first so the browser top layer doesn't trap the Flutterwave modal
+  closeDialog("checkout-dialog");
 
-  const submitBtn = document.getElementById("checkout-submit-btn");
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.style.opacity = "0.7";
+  showToast("Opening secure Flutterwave checkout...");
+
+  if (typeof FlutterwaveCheckout === "undefined") {
+    showToast("Flutterwave SDK not loaded. Switching to Direct Bank Transfer...");
+    confirmBankTransferOrder(orderData);
+    return;
   }
 
   try {
@@ -799,38 +819,45 @@ function initiateFlutterwavePayment(orderData) {
         logo: PAYMENT_CONFIG.businessLogo
       },
       callback: function(data) {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.style.opacity = "1";
-        }
         const txRef = data.transaction_id || data.tx_ref || orderData.ref;
         handlePaymentSuccess("Flutterwave Online", txRef, orderData, "Paid & Verified (Instant)");
       },
       onclose: function() {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.style.opacity = "1";
+        showToast("Flutterwave window closed. Reopening checkout...");
+        const dialog = document.getElementById("checkout-dialog");
+        if (dialog && typeof dialog.showModal === "function") {
+          dialog.showModal();
         }
-        showToast("Flutterwave payment window closed. You can retry or choose Payment on Delivery.");
       }
     });
   } catch (err) {
     console.error("Flutterwave error:", err);
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.style.opacity = "1";
-    }
-    showToast("Could not launch Flutterwave. Opening WhatsApp order...");
-    sendWhatsAppDirectOrder(orderData);
+    showToast("Flutterwave unavailable. Switching to Direct Bank Transfer...");
+    confirmBankTransferOrder(orderData);
   }
 }
 
-// 3. Payment on Delivery (POD) Confirmation
-function confirmPodOrder(orderData) {
-  handlePaymentSuccess("Payment on Delivery (POD)", orderData.ref, orderData, "POD Confirmed (Pay upon Arrival)");
+// 3. Direct Bank Transfer Order Confirmation
+function confirmBankTransferOrder(orderData) {
+  handlePaymentSuccess(
+    "Direct Bank Transfer", 
+    orderData.ref, 
+    orderData, 
+    "Awaiting Transfer Confirmation"
+  );
 }
 
-// 4. Direct WhatsApp Order
+// 4. Payment on Delivery (POD) Confirmation
+function confirmPodOrder(orderData) {
+  handlePaymentSuccess(
+    "Payment on Delivery (POD)", 
+    orderData.ref, 
+    orderData, 
+    "POD Confirmed (Pay upon Arrival)"
+  );
+}
+
+// 5. Direct WhatsApp Order
 function sendWhatsAppDirectOrder(orderData) {
   const dateStr = new Date().toLocaleDateString('en-GB');
 
@@ -864,7 +891,7 @@ function sendWhatsAppDirectOrder(orderData) {
   showToast("Order prepared! Opening WhatsApp to finalize with our team.");
 }
 
-// 5. Payment / Order Success Handler & Receipt Dialog
+// 6. Payment / Order Success Handler & Receipt Dialog
 function handlePaymentSuccess(gateway, reference, orderData, statusLabel = "Paid & Verified") {
   // Clear cart state & storage
   AppState.cart = [];
@@ -883,6 +910,7 @@ function handlePaymentSuccess(gateway, reference, orderData, statusLabel = "Paid
   const addrEl = document.getElementById("receipt-address");
   const amountEl = document.getElementById("receipt-amount");
   const subtitleEl = document.getElementById("receipt-subtitle");
+  const bankBoxEl = document.getElementById("receipt-bank-box");
 
   if (refEl) refEl.textContent = reference;
   if (methodEl) methodEl.textContent = gateway;
@@ -891,12 +919,20 @@ function handlePaymentSuccess(gateway, reference, orderData, statusLabel = "Paid
   if (amountEl) amountEl.textContent = formatNaira(orderData.amount);
 
   const isPod = gateway.includes("POD") || gateway.includes("Delivery");
+  const isBank = gateway.includes("Bank");
+
+  if (bankBoxEl) {
+    bankBoxEl.style.display = isBank ? "block" : "none";
+  }
 
   if (statusEl) {
     statusEl.textContent = statusLabel;
     if (isPod) {
       statusEl.className = "receipt-status-badge pod";
       if (subtitleEl) subtitleEl.textContent = "Your order has been booked for Doorstep Delivery! Inspect and pay via Cash or POS to the rider upon receipt.";
+    } else if (isBank) {
+      statusEl.className = "receipt-status-badge bank-transfer";
+      if (subtitleEl) subtitleEl.textContent = "Order placed! Please transfer the subtotal to the GTBank account below and upload your receipt on WhatsApp.";
     } else {
       statusEl.className = "receipt-status-badge";
       if (subtitleEl) subtitleEl.textContent = "Your payment was successful and verified. We are preparing your order for prompt dispatch!";
@@ -906,13 +942,23 @@ function handlePaymentSuccess(gateway, reference, orderData, statusLabel = "Paid
   // Setup WhatsApp receipt dispatch link
   const waBtn = document.getElementById("receipt-whatsapp-btn");
   if (waBtn) {
-    const waHeader = isPod 
-      ? `🚚 *SALAMA FABRICS - PAYMENT ON DELIVERY CONFIRMATION* 🚚`
-      : `✅ *SALAMA FABRICS - ONLINE PAYMENT RECEIPT* ✅`;
+    let waHeader = `✅ *SALAMA FABRICS - ONLINE PAYMENT RECEIPT* ✅`;
+    if (isPod) {
+      waHeader = `🚚 *SALAMA FABRICS - PAYMENT ON DELIVERY CONFIRMATION* 🚚`;
+    } else if (isBank) {
+      waHeader = `🏛️ *SALAMA FABRICS - DIRECT BANK TRANSFER ORDER* 🏛️`;
+    }
     
     let itemsSummary = orderData.items.map((item, idx) => 
       `${idx + 1}. ${item.name} (${item.color}, Qty: ${item.quantity}) - ${formatNaira(item.quantity * item.price)}`
     ).join("\n");
+
+    let actionInstructions = `My payment is completed and verified. Please send dispatch and courier tracking updates. Thank you!`;
+    if (isPod) {
+      actionInstructions = `Please dispatch my package. I will inspect and pay upon doorstep arrival.`;
+    } else if (isBank) {
+      actionInstructions = `I have placed a Direct Bank Transfer order. Attached is my payment transfer receipt/proof for confirmation.`;
+    }
 
     const waMsg = 
       `${waHeader}\n` +
@@ -921,6 +967,7 @@ function handlePaymentSuccess(gateway, reference, orderData, statusLabel = "Paid
       `💳 *Payment Method:* ${gateway}\n` +
       `📌 *Status:* ${statusLabel}\n` +
       `💰 *Total Amount:* ${formatNaira(orderData.amount)}\n` +
+      (isBank ? `🏦 *Beneficiary:* GTBank | 0147709019 | SALAMA Fabrics Ltd\n` : '') +
       `----------------------------------------\n` +
       `👤 *Customer:* ${orderData.name}\n` +
       `📞 *Phone:* ${orderData.phone}\n` +
@@ -928,13 +975,22 @@ function handlePaymentSuccess(gateway, reference, orderData, statusLabel = "Paid
       (orderData.notes ? `📝 *Notes:* ${orderData.notes}\n` : '') +
       `----------------------------------------\n` +
       `📦 *Items:* \n${itemsSummary}\n\n` +
-      (isPod 
-        ? `Please dispatch my package. I will inspect and pay upon doorstep arrival.`
-        : `My payment is completed and verified. Please send dispatch and courier tracking updates. Thank you!`);
+      actionInstructions;
 
     waBtn.onclick = () => {
       window.open(`https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${encodeURIComponent(waMsg)}`, "_blank");
     };
+
+    const waBtnText = waBtn.querySelector("span");
+    if (waBtnText) {
+      if (isBank) {
+        waBtnText.textContent = "📲 Send Bank Transfer Proof on WhatsApp";
+      } else if (isPod) {
+        waBtnText.textContent = "🚚 Dispatch Order via WhatsApp";
+      } else {
+        waBtnText.textContent = "💬 Track & Dispatch via WhatsApp";
+      }
+    }
   }
 
   // Display receipt dialog
@@ -943,7 +999,13 @@ function handlePaymentSuccess(gateway, reference, orderData, statusLabel = "Paid
     successDialog.showModal();
   }
 
-  showToast(isPod ? "Order booked for Payment on Delivery!" : "Payment successful! Order confirmed.");
+  if (isBank) {
+    showToast("Order booked! Please transfer to GTBank account and send proof on WhatsApp.");
+  } else if (isPod) {
+    showToast("Order booked for Payment on Delivery!");
+  } else {
+    showToast("Payment successful! Order confirmed.");
+  }
 }
 
 /* ==========================================================================

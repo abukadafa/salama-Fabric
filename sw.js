@@ -3,7 +3,7 @@
  * Provides offline resilience, instant repeat visits, and asset caching
  */
 
-const CACHE_NAME = 'salama-cache-v1.0.3';
+const CACHE_NAME = 'salama-cache-v1.0.4';
 
 const STATIC_ASSETS = [
   './',
@@ -11,6 +11,7 @@ const STATIC_ASSETS = [
   './css/style.css',
   './js/products.js',
   './js/app.js',
+  './js/chatbot.js',
   './assets/logo.svg',
   './assets/icon-192.png',
   './assets/icon-512.png',
